@@ -95,19 +95,25 @@ public class DefaultAdminUserEnginePlugin extends AbstractProcessEnginePlugin {
         		
 
         
+        TaskQuery allTasksQuery = taskService.createTaskQuery();
+        Filter filter = filterService.newTaskFilter("All tasks");
+        filter.setQuery(allTasksQuery);
+        
+        filterService.saveFilter(filter);
+
         TaskQuery myTasksQuery = taskService.createTaskQuery().taskAssigneeExpression("${ currentUser() }");
         
-        Filter filter = filterService.newTaskFilter("Mijn taken");
+        filter = filterService.newTaskFilter("My tasks");
         filter.setQuery(myTasksQuery);
         
         filterService.saveFilter(filter);
 
         TaskQuery myGroupTasksQuery = taskService.createTaskQuery().taskCandidateGroupInExpression("${ currentUserGroups() }");
         
-        Filter filter2 = filterService.newTaskFilter("Mijn groep taken");
-        filter2.setQuery(myGroupTasksQuery);
+        filter = filterService.newTaskFilter("My Groups Tasks");
+        filter.setQuery(myGroupTasksQuery);
         
-        filterService.saveFilter(filter2);
+        filterService.saveFilter(filter);
 
 }
 	
