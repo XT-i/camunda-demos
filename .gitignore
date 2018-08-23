@@ -9,6 +9,7 @@ buildNumber.properties
 .mvn/timing.properties
 .settings
 .project
+.classpath
 bin/
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
