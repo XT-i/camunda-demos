@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="order_handling" name="Order Handling Decision" namespace="http://camunda.org/schema/1.0/dmn">
+  <inputData id="InputData_0gu7p5r" name="Number of Previous Orders">
+    <extensionElements>
+      <biodi:bounds x="613" y="455" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_08qa49x" name="Order value">
+    <extensionElements>
+      <biodi:bounds x="947" y="315" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <decision id="decision_customer_labels" name="Customer Label">
+    <extensionElements>
+      <biodi:bounds x="672" y="307" width="180" height="80" />
+      <biodi:edge source="InputData_0gu7p5r">
+        <biodi:waypoints x="684" y="455" />
+        <biodi:waypoints x="730" y="387" />
+      </biodi:edge>
+      <biodi:edge source="InputData_1rdphdb">
+        <biodi:waypoints x="813" y="455" />
+        <biodi:waypoints x="790" y="387" />
+      </biodi:edge>
+      <biodi:edge source="KnowledgeSource_179x8fp">
+        <biodi:waypoints x="566" y="357" />
+        <biodi:waypoints x="672" y="358" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0gu7p5r" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1rdphdb" />
+    </informationRequirement>
+    <authorityRequirement>
+      <requiredAuthority href="#KnowledgeSource_179x8fp" />
+    </authorityRequirement>
+    <decisionTable id="DecisionTable_1d0uxvv" hitPolicy="FIRST">
+      <input id="InputClause_1vbzwhb" label="Number of Previous Orders" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_1825u7r" typeRef="integer">
+          <text>previousOrders</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1e348yf" label="Days Since First Order" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_1rl3aps" typeRef="integer">
+          <text>daysSinceFirstOrder</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_140mnng" label="Avg Orders Per Month" camunda:inputVariable="ordersPerMonth">
+        <inputExpression id="LiteralExpression_0tqw2j1" typeRef="double" expressionLanguage="juel">
+          <text>${daysSinceFirstOrder==0?0:(365 / 12 * previousOrders / daysSinceFirstOrder)}</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_00g6d9n" label="Customer Label" name="customerLabel" typeRef="string" />
+      <rule id="row-394768291-2">
+        <inputEntry id="UnaryTests_1ie3qrd">
+          <text>0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ur9y8z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1edlyln">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1crlzgo">
+          <text><![CDATA["firsttime"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="table-721292047-4">
+        <inputEntry id="UnaryTests_0v1vc9f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1co8gsm">
+          <text><![CDATA[> 1000]]></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zswrhc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d5b7r1">
+          <text><![CDATA["longtime"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="row-394768291-1">
+        <inputEntry id="UnaryTests_0qo6wj3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mlqgur">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kwod29">
+          <text><![CDATA[>5]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0trteeg">
+          <text><![CDATA["shopaholic"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="row-394768291-3">
+        <inputEntry id="UnaryTests_09adwyk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ldcxkg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x5ptgs">
+          <text><![CDATA[>3]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_136pbpo">
+          <text><![CDATA["premium"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="table-721292047-1">
+        <inputEntry id="UnaryTests_1yjtpsy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1azci40">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wn7vwp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12sq7em">
+          <text><![CDATA["standard"]]></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1rdphdb" name="Days since first order">
+    <extensionElements>
+      <biodi:bounds x="760" y="455" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <knowledgeSource id="KnowledgeSource_179x8fp" name="Customer segmentation strategy">
+    <extensionElements>
+      <biodi:bounds x="466" y="325" width="100" height="63" />
+    </extensionElements>
+  </knowledgeSource>
+  <decision id="decision_gift" name="Gift">
+    <extensionElements>
+      <biodi:bounds x="809" y="150" width="180" height="80" />
+      <biodi:edge source="InputData_08qa49x">
+        <biodi:waypoints x="992" y="315" />
+        <biodi:waypoints x="933" y="230" />
+      </biodi:edge>
+      <biodi:edge source="decision_customer_labels">
+        <biodi:waypoints x="803" y="307" />
+        <biodi:waypoints x="872" y="230" />
+      </biodi:edge>
+      <biodi:edge source="BusinessKnowledgeModel_1w00u3k">
+        <biodi:waypoints x="1071" y="173" />
+        <biodi:waypoints x="989" y="189" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_08qa49x" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#decision_customer_labels" />
+    </informationRequirement>
+    <knowledgeRequirement>
+      <requiredKnowledge href="#BusinessKnowledgeModel_1w00u3k" />
+    </knowledgeRequirement>
+    <decisionTable id="DecisionTable_1fesxta" hitPolicy="FIRST">
+      <input id="InputClause_0s7j6x8" label="Customer Label" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_1rixlp8" typeRef="string">
+          <text>customerLabel</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0s0jvll" label="Order Value" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0jm2uua" typeRef="integer">
+          <text>orderValue</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_198xnt3" label="Gift" name="gift" typeRef="boolean" />
+      <rule id="row-394768291-4">
+        <description>To welcome or re-welcome customers, and thank high-value customers</description>
+        <inputEntry id="UnaryTests_0d57gkf">
+          <text><![CDATA["firsttime","longtime","shopaholic"]]></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pv5pd1">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g3qtf1">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-394768291-5">
+        <description>With high-value orders, we always add a free gift</description>
+        <inputEntry id="UnaryTests_14y53xv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15ad3tg">
+          <text><![CDATA[>250]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04b39rm">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-394768291-6">
+        <inputEntry id="UnaryTests_09kl2h8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r0hvpj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1oe91gj">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <businessKnowledgeModel id="BusinessKnowledgeModel_1w00u3k" name="Customer retention learnings">
+    <extensionElements>
+      <biodi:bounds x="1071" y="150" width="135" height="46" />
+    </extensionElements>
+  </businessKnowledgeModel>
+  <decision id="decision_consolidated" name="Consolidated">
+    <extensionElements>
+      <biodi:bounds x="679" y="-19" width="180" height="80" />
+      <biodi:edge source="decision_customer_labels">
+        <biodi:waypoints x="762" y="307" />
+        <biodi:waypoints x="761" y="61" />
+      </biodi:edge>
+      <biodi:edge source="decision_gift">
+        <biodi:waypoints x="878" y="150" />
+        <biodi:waypoints x="831" y="61" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#decision_customer_labels" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#decision_gift" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_12z38ab" hitPolicy="FIRST">
+      <input id="InputClause_0tnrf4z" label="Customer Label" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0h34qls" typeRef="string">
+          <text>customerLabel</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0yaama4" label="Gift" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_1wtwsj1" typeRef="boolean">
+          <text>gift</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0fku99h" label="Customer Label" name="customerLabel" typeRef="string">
+        <outputValues id="UnaryTests_1w09jik">
+          <text></text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_1e1zoch" label="Gift" name="gift" typeRef="boolean" />
+      <rule id="row-394768291-7">
+        <inputEntry id="UnaryTests_19fg6vr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wtavvl">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gf5vci">
+          <text>customerLabel</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bqgnvo">
+          <text>gift</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <textAnnotation id="TextAnnotation_0hp5gvm">
+    <extensionElements>
+      <biodi:bounds x="957.2407592407592" y="-77.8791208791209" width="100" height="80" />
+    </extensionElements>
+    <text>Artificial construction to consolidate the output of all Decision tables in the model.</text>
+  </textAnnotation>
+  <association id="Association_0dsq57j">
+    <extensionElements>
+      <biodi:edge source="decision_consolidated">
+        <biodi:waypoints x="859" y="-1" />
+        <biodi:waypoints x="957" y="-26" />
+      </biodi:edge>
+    </extensionElements>
+    <sourceRef href="#decision_consolidated" />
+    <targetRef href="#TextAnnotation_0hp5gvm" />
+  </association>
+</definitions>
