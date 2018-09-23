@@ -1,0 +1,84 @@
+
+<!doctype html>
+<html lang="en">
+  <div th:insert="~{header :: head}"></div>
+
+  <body>
+
+	<div th:insert="~{header :: header}"></div>
+
+    <main role="main">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">CMMN Demo Application</h1>
+          <p class="lead text-muted">Case for <span th:text="${case.tag}">TAG</span> (<span th:text="${case.type}">CASE TYPE</span>).</p>
+        </div>
+        <a href="/" class="btn btn-primary my-2">Overview</a>
+        <a class="btn btn-sm btn-outline-secondary"  th:href="@{/case/{case}/close(case=${case.tag})}">Close</a>
+      </section>
+        
+        
+        
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-md-4" th:each="activity : ${case.activities}">
+              <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                  <p class="card-text" th:text="${activity.description}"></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" th:each="option: ${activity.options}" th:text="${option}" th:href="@{/case/{case}/done/{act}/{option}(case=${case.tag},act=${activity.id},option=${option})}">TODO</a>
+                    </div>
+                    <small class="text-muted">Open</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  </div>
+            
+            
+		  </div>
+        </div>
+      </div>
+        
+      <section class="text-center">
+        <div class="container">
+          <h2 class="jumbotron-heading">Optional Tasks</h1>
+        </div>
+      </section>
+        
+        
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-md-4" th:each="activity : ${case.optionals}">
+              <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                  <p class="card-text" th:text="${activity.description}"></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" th:href="@{/case/{case}/plan/{act}(case=${case.tag},act=${activity.id})}">Plan</a>
+                    </div>
+                    <small class="text-muted">Optional</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  </div>
+            
+            
+		  </div>
+        </div>
+      </div>
+
+        
+    </main>
+
+	<div th:insert="~{footer :: footer}"></div>
+
+  </body>
+</html>
+

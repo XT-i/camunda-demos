@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Definitions_1ey60i2" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="2.0.1">
+  <cmmn:case id="case.servicedesk-laptop-intake" name="Servicedesk Laptop Intake">
+    <cmmn:casePlanModel id="CasePlanModel_1" name="Service Desk Laptop Intake" autoComplete="true">
+      <cmmn:planItem id="activity.inspect-laptop-condition" definitionRef="HumanTask_17yf94t" />
+      <cmmn:planItem id="milestone.too-old" definitionRef="Milestone_0pfn280">
+        <cmmn:entryCriterion id="EntryCriterion_0962nxn" sentryRef="Sentry_12dp45s" />
+      </cmmn:planItem>
+      <cmmn:planItem id="milestone.ready-for-reuse" definitionRef="Milestone_0nf3sve">
+        <cmmn:entryCriterion id="EntryCriterion_1lhtwou" sentryRef="Sentry_1igl4vi" />
+      </cmmn:planItem>
+      <cmmn:planItem id="milestone.too-broken" definitionRef="Milestone_1y7e5f5">
+        <cmmn:entryCriterion id="EntryCriterion_1z08eoe" sentryRef="Sentry_05p9j2m" />
+      </cmmn:planItem>
+      <cmmn:planItem id="stage.prepare-for-reuse" definitionRef="Stage_1jjhfs4">
+        <cmmn:entryCriterion id="EntryCriterion_06opw7m" sentryRef="Sentry_04wgcw7" />
+      </cmmn:planItem>
+      <cmmn:planItem id="activity.fill-in-timesheet" definitionRef="HumanTask_0hb79o4">
+        <cmmn:itemControl id="PlanItemControl_0wug8p0">
+          <cmmn:manualActivationRule id="ManualActivationRule_1pbkfod" />
+        </cmmn:itemControl>
+      </cmmn:planItem>
+      <cmmn:planItem id="activity.inspect-usb-c-cable" definitionRef="HumanTask_1njuums">
+        <cmmn:entryCriterion id="EntryCriterion_1o3a9si" sentryRef="Sentry_0e42rd1" />
+      </cmmn:planItem>
+      <cmmn:planItem id="PlanItem_0f0jlp1" definitionRef="Stage_140tqjf">
+        <cmmn:entryCriterion id="EntryCriterion_1yyxkck" sentryRef="Sentry_15yg6mc" />
+        <cmmn:entryCriterion id="EntryCriterion_0a1lhr2" sentryRef="Sentry_0712860" />
+        <cmmn:exitCriterion id="EntryCriterion_1og1gwh" sentryRef="Sentry_1j16i2g" />
+      </cmmn:planItem>
+      <cmmn:sentry id="Sentry_12dp45s">
+        <cmmn:planItemOnPart id="PlanItemOnPart_1ehcv1b" sourceRef="activity.inspect-laptop-condition">
+          <cmmn:standardEvent>complete</cmmn:standardEvent>
+        </cmmn:planItemOnPart>
+        <cmmn:ifPart id="IfPart_1txsjk0">
+          <cmmn:condition id="Expression_08gu4y9">${evaluation=="outdated"}</cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_1igl4vi">
+        <cmmn:planItemOnPart id="PlanItemOnPart_1e1v9e7" sourceRef="stage.prepare-for-reuse">
+          <cmmn:standardEvent>complete</cmmn:standardEvent>
+        </cmmn:planItemOnPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_05p9j2m">
+        <cmmn:planItemOnPart id="PlanItemOnPart_19ppxem" sourceRef="activity.inspect-laptop-condition">
+          <cmmn:standardEvent>complete</cmmn:standardEvent>
+        </cmmn:planItemOnPart>
+        <cmmn:ifPart id="IfPart_06c8ntp">
+          <cmmn:condition id="Expression_0ow9rxp">${evaluation=="broken"}</cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_04wgcw7">
+        <cmmn:planItemOnPart id="PlanItemOnPart_0m9lfqg" sourceRef="activity.inspect-laptop-condition">
+          <cmmn:standardEvent>complete</cmmn:standardEvent>
+        </cmmn:planItemOnPart>
+        <cmmn:ifPart id="IfPart_1xshi11">
+          <cmmn:condition id="Expression_0kco5kf">${evaluation=="reusable"}</cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_0e42rd1">
+        <cmmn:ifPart id="IfPart_0olki22">
+          <cmmn:condition id="Expression_1mkpcz6">${type=="Macbook"}</cmmn:condition>
+        </cmmn:ifPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_15yg6mc">
+        <cmmn:planItemOnPart id="PlanItemOnPart_0sadp0y" sourceRef="milestone.too-old">
+          <cmmn:standardEvent>occur</cmmn:standardEvent>
+        </cmmn:planItemOnPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_0712860">
+        <cmmn:planItemOnPart id="PlanItemOnPart_17kxiae" sourceRef="milestone.too-broken">
+          <cmmn:standardEvent>occur</cmmn:standardEvent>
+        </cmmn:planItemOnPart>
+      </cmmn:sentry>
+      <cmmn:sentry id="Sentry_1j16i2g">
+        <cmmn:planItemOnPart id="PlanItemOnPart_0voom1r" sourceRef="milestone.ready-for-reuse">
+          <cmmn:standardEvent>occur</cmmn:standardEvent>
+        </cmmn:planItemOnPart>
+      </cmmn:sentry>
+      <cmmn:humanTask id="HumanTask_17yf94t" name="Inspect laptop condition" camunda:assignee="admin" />
+      <cmmn:milestone id="Milestone_0pfn280" name="Too Old" />
+      <cmmn:milestone id="Milestone_0nf3sve" name="Ready for reuse" />
+      <cmmn:milestone id="Milestone_1y7e5f5" name="Broken" />
+      <cmmn:stage id="Stage_1jjhfs4" name="Prepare for reuse" autoComplete="false">
+        <cmmn:planItem id="task.perform-system-check" definitionRef="HumanTask_05t7vcc">
+          <cmmn:itemControl id="PlanItemControl_0evvb8h">
+            <cmmn:requiredRule id="RequiredRule_11cdi1p" />
+          </cmmn:itemControl>
+        </cmmn:planItem>
+        <cmmn:planItem id="task.reinstall-os" definitionRef="HumanTask_0569acw" />
+        <cmmn:humanTask id="HumanTask_0569acw" name="Reinstall OS" camunda:assignee="admin" />
+        <cmmn:humanTask id="HumanTask_05t7vcc" name="Perform System Check" camunda:assignee="admin" />
+      </cmmn:stage>
+      <cmmn:humanTask id="HumanTask_1njuums" name="Inspect USB-C Cable" camunda:assignee="admin" />
+      <cmmn:humanTask id="HumanTask_0hb79o4" name="Fill in timesheet report" />
+      <cmmn:stage id="Stage_140tqjf">
+        <cmmn:planItem id="PlanItem_0p07svn" definitionRef="HumanTask_01hdmah">
+          <cmmn:itemControl id="PlanItemControl_10um8kx">
+            <cmmn:requiredRule id="RequiredRule_0u61jxg" />
+          </cmmn:itemControl>
+        </cmmn:planItem>
+        <cmmn:humanTask id="HumanTask_01hdmah" name="Wipe harddisk" camunda:assignee="admin" />
+      </cmmn:stage>
+    </cmmn:casePlanModel>
+  </cmmn:case>
+  <cmmndi:CMMNDI>
+    <cmmndi:CMMNDiagram id="case-model.servicedesk-laptop-intake" name="Servicedesk Laptop Intake" documentation="&#10;">
+      <cmmndi:Size width="500" height="500" />
+      <cmmndi:CMMNShape id="DI_CasePlanModel_1" cmmnElementRef="CasePlanModel_1">
+        <dc:Bounds x="162" y="63" width="1069" height="556" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0dlm55l_di" cmmnElementRef="activity.inspect-laptop-condition">
+        <dc:Bounds x="217" y="195" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_06opw7m_di" cmmnElementRef="EntryCriterion_06opw7m">
+        <dc:Bounds x="314" y="474" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_07p79kl_di" cmmnElementRef="task.reinstall-os">
+        <dc:Bounds x="449" y="401" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_1p2fx3w_di" cmmnElementRef="milestone.too-old">
+        <dc:Bounds x="755" y="179" width="100" height="40" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_0962nxn_di" cmmnElementRef="EntryCriterion_0962nxn">
+        <dc:Bounds x="745" y="186" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0zcmfd3_di" cmmnElementRef="milestone.ready-for-reuse">
+        <dc:Bounds x="755" y="475" width="100" height="40" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_1lhtwou_di" cmmnElementRef="EntryCriterion_1lhtwou">
+        <dc:Bounds x="745" y="479" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_1e1v9e7_di" cmmnElementRef="PlanItemOnPart_1e1v9e7" targetCMMNElementRef="EntryCriterion_1lhtwou" isStandardEventVisible="true">
+        <di:waypoint x="649" y="495" />
+        <di:waypoint x="697" y="495" />
+        <di:waypoint x="697" y="493" />
+        <di:waypoint x="745" y="493" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="674" y="328.5" width="53" height="12" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNShape id="PlanItem_1j7ek4t_di" cmmnElementRef="milestone.too-broken">
+        <dc:Bounds x="755" y="294" width="100" height="40" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_1z08eoe_di" cmmnElementRef="EntryCriterion_1z08eoe">
+        <dc:Bounds x="745" y="301" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_1ehcv1b_di" cmmnElementRef="PlanItemOnPart_1ehcv1b" targetCMMNElementRef="EntryCriterion_0962nxn" isStandardEventVisible="true">
+        <di:waypoint x="317" y="235" />
+        <di:waypoint x="557" y="235" />
+        <di:waypoint x="557" y="200" />
+        <di:waypoint x="745" y="200" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="680" y="204" width="52" height="13" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_19ppxem_di" cmmnElementRef="PlanItemOnPart_19ppxem" targetCMMNElementRef="EntryCriterion_1z08eoe" isStandardEventVisible="true">
+        <di:waypoint x="317" y="235" />
+        <di:waypoint x="557" y="235" />
+        <di:waypoint x="557" y="315" />
+        <di:waypoint x="745" y="315" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="663" y="469.5" width="53" height="12" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_0m9lfqg_di" cmmnElementRef="PlanItemOnPart_0m9lfqg" targetCMMNElementRef="EntryCriterion_06opw7m" isStandardEventVisible="true">
+        <di:waypoint x="267" y="275" />
+        <di:waypoint x="267" y="488" />
+        <di:waypoint x="314" y="488" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="201" y="409" width="53" height="12" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNShape id="PlanItem_0rsxbmm_di" cmmnElementRef="stage.prepare-for-reuse">
+        <dc:Bounds x="324" y="391" width="325" height="208" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_1psl4ow_di" cmmnElementRef="task.perform-system-check">
+        <dc:Bounds x="449" y="495" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_1gyiojs_di" cmmnElementRef="activity.fill-in-timesheet">
+        <dc:Bounds x="474" y="96" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0ti0jjo_di" cmmnElementRef="activity.inspect-usb-c-cable">
+        <dc:Bounds x="320" y="96" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_1o3a9si_di" cmmnElementRef="EntryCriterion_1o3a9si">
+        <dc:Bounds x="310" y="134" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="PlanItem_0oo4oez_di" cmmnElementRef="PlanItem_0p07svn">
+        <dc:Bounds x="1026" y="205" width="100" height="80" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="EntryCriterion_1yyxkck_di" cmmnElementRef="EntryCriterion_1yyxkck">
+        <dc:Bounds x="921" y="185" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_0sadp0y_di" cmmnElementRef="PlanItemOnPart_0sadp0y" targetCMMNElementRef="EntryCriterion_1yyxkck" isStandardEventVisible="true">
+        <di:waypoint x="855" y="199" />
+        <di:waypoint x="921" y="199" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="870" y="180" width="35" height="12" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNShape id="EntryCriterion_0a1lhr2_di" cmmnElementRef="EntryCriterion_0a1lhr2">
+        <dc:Bounds x="921" y="300" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_17kxiae_di" cmmnElementRef="PlanItemOnPart_17kxiae" targetCMMNElementRef="EntryCriterion_0a1lhr2" isStandardEventVisible="true">
+        <di:waypoint x="855" y="314" />
+        <di:waypoint x="888" y="314" />
+        <di:waypoint x="888" y="314" />
+        <di:waypoint x="921" y="314" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="868" y="295" width="35" height="12" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+      <cmmndi:CMMNShape id="PlanItem_0f0jlp1_di" cmmnElementRef="PlanItem_0f0jlp1">
+        <dc:Bounds x="931" y="138" width="278" height="215" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNShape id="ExitCriterion_043jiev_di" cmmnElementRef="EntryCriterion_1og1gwh">
+        <dc:Bounds x="1004" y="339" width="20" height="28" />
+        <cmmndi:CMMNLabel />
+      </cmmndi:CMMNShape>
+      <cmmndi:CMMNEdge id="PlanItemOnPart_0voom1r_di" cmmnElementRef="PlanItemOnPart_0voom1r" targetCMMNElementRef="EntryCriterion_1og1gwh" isStandardEventVisible="true">
+        <di:waypoint x="855" y="495" />
+        <di:waypoint x="1014" y="495" />
+        <di:waypoint x="1014" y="367" />
+        <cmmndi:CMMNLabel>
+          <dc:Bounds x="822" y="447" width="35" height="12" />
+        </cmmndi:CMMNLabel>
+      </cmmndi:CMMNEdge>
+    </cmmndi:CMMNDiagram>
+  </cmmndi:CMMNDI>
+</cmmn:definitions>

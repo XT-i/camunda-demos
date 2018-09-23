@@ -1,0 +1,72 @@
+
+<!doctype html>
+<html lang="en">
+  <div th:insert="~{header :: head}"></div>
+
+  <body>
+
+	<div th:insert="~{header :: header}"></div>
+
+    <main role="main">
+<form id="openCaseForm" action="#" method="POST" th:action="@{/open-case}" th:object="${openCaseForm}">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">CMMN Demo Application</h1>
+          <p class="lead text-muted">Tasks related to laptop intake, based on an executable CMMN model.</p>
+          <p>
+            <input th:field="*{tag}"/>
+            <select th:field="*{type}">
+            	<option value="Macbook">Macbook</option>
+            	<option value="Dell">Dell</option>
+            </select>
+            <a href="javascript:document.getElementById('openCaseForm').submit()" class="btn btn-primary my-2">Open case</a>
+          </p>
+        </div>
+      </section>
+</form>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-md-4" th:each="openCase : ${openCases}">
+              <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                  <p class="card-text" th:text="${openCase.businessKey}"></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" th:href="@{/case/{key}(key=${openCase.businessKey})}">View</a>
+                    </div>
+                    <small class="text-muted">Open</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  </div>
+            
+          <div class="row">
+            <div class="col-md-4" th:each="closedCase : ${closedCases}">
+              <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                  <p class="card-text" th:text="${closedCase.businessKey}"></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    </div>
+                    <small class="text-muted">Closed</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+		  </div>
+        </div>
+      </div>
+
+    </main>
+
+	<div th:insert="~{footer :: footer}"></div>
+
+  </body>
+</html>
+
