@@ -63,7 +63,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1crlzgo">
-          <text><![CDATA["firsttime"]]></text>
+          <text>"firsttime"</text>
         </outputEntry>
       </rule>
       <rule id="table-721292047-4">
@@ -71,13 +71,13 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1co8gsm">
-          <text><![CDATA[> 1000]]></text>
+          <text>&gt; 1000</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0zswrhc">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0d5b7r1">
-          <text><![CDATA["longtime"]]></text>
+          <text>"longtime"</text>
         </outputEntry>
       </rule>
       <rule id="row-394768291-1">
@@ -88,10 +88,10 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0kwod29">
-          <text><![CDATA[>5]]></text>
+          <text>&gt;5</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0trteeg">
-          <text><![CDATA["shopaholic"]]></text>
+          <text>"shopaholic"</text>
         </outputEntry>
       </rule>
       <rule id="row-394768291-3">
@@ -102,10 +102,10 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1x5ptgs">
-          <text><![CDATA[>3]]></text>
+          <text>&gt;3</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_136pbpo">
-          <text><![CDATA["premium"]]></text>
+          <text>"premium"</text>
         </outputEntry>
       </rule>
       <rule id="table-721292047-1">
@@ -119,7 +119,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_12sq7em">
-          <text><![CDATA["standard"]]></text>
+          <text>"standard"</text>
         </outputEntry>
       </rule>
     </decisionTable>
@@ -174,7 +174,7 @@
       <rule id="row-394768291-4">
         <description>To welcome or re-welcome customers, and thank high-value customers</description>
         <inputEntry id="UnaryTests_0d57gkf">
-          <text><![CDATA["firsttime","longtime","shopaholic"]]></text>
+          <text>"firsttime","longtime","shopaholic"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0pv5pd1">
           <text></text>
@@ -189,7 +189,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_15ad3tg">
-          <text><![CDATA[>250]]></text>
+          <text>&gt;250</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_04b39rm">
           <text>true</text>
