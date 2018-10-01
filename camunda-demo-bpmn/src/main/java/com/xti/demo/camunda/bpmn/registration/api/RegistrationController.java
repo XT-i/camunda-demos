@@ -25,7 +25,6 @@ import com.xti.demo.camunda.bpmn.util.GenericResult;
  */
 @RestController
 @RequestMapping("/registration")
-@Produces("application/json")
 public class RegistrationController {
 
 	@Autowired
